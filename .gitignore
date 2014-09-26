@@ -1,3 +1,9 @@
+# user
+/debug
+/release
+/Makefile.*
+
+
 # C++ objects and libs
 
 *.slo
