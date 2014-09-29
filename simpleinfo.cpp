@@ -42,9 +42,9 @@ void SimpleInfo::loadSelectWidget()
     selectLayout->addStretch(1);
 
     QStringList itemList;
-    itemList << "number" << "name" << "sex"
-             << "schoolName" << "departmentName" << "majorName"
-             << "className" << "education" << "phoneNumber";
+    itemList << "学号" << "姓名" << "性别"
+             << "学校" << "系" << "专业"
+             << "班级" << "教育等级" << "电话号码";
     selectCb->addItems(itemList);
 
     connect(selectBtn, SIGNAL(clicked()),
@@ -141,7 +141,7 @@ void SimpleInfo::tableViewSelect(QModelIndex index)
     photoNameLb->setText(name);
 
     QSqlQuery query;
-    bool ok = query.exec(tr("select photo from studentImage where number = %1").arg(number));
+    bool ok = query.exec(tr("select 照片 from studentImage where 学号 = %1").arg(number));
     if (ok == false || !query.next())
     {
         return;
@@ -233,23 +233,52 @@ void SimpleInfo::btnAlterOkClicked()
 
     if(tableMode->submitAll())
     {
-        QSqlQuery query;
-        //query.prepare(tr(""))
+
+        photoAlterBtn->setHidden(true);
+        btnAdd->setHidden(true);
+        btnDelete->setHidden(true);
+        btnRepeal->setHidden(true);
+        btnALterOk->setHidden(true);
+        btnCancel->setHidden(true);
+        tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+        const QPixmap *pix = photoLb->pixmap();
+        if(pix != NULL && !pix->isNull())
+        {
+            QByteArray byte;
+            QBuffer buf(&byte);
+            buf.open(QIODevice::WriteOnly);
+            if (!pix->save(&buf, "JPG"))
+            {
+                QMessageBox::about(this, tr("error"), tr("SimpleInfo::btnAlterOkClicked is error\n%1").arg("photo is save fail 01"));
+            }
+            buf.close();
+
+            QSqlQuery query;
+            int ok = query.prepare(tr("update studentImage set 照片 = :byte where 学号 = '%1'").arg(photoNumberLb->text()));
+            if (ok == true && !byte.isEmpty())
+            {
+                query.bindValue(":byte", byte);
+                if (!query.exec())
+                {
+                    QMessageBox::about(this, tr("error"), tr("SimpleInfo::btnAlterOkClicked is error\n%1").arg("photo is save fail 02"));
+                }
+            }
+            else
+            {
+                QMessageBox::about(this, tr("error"), tr("SimpleInfo::btnAlterOkClicked is error\n%1").arg("photo is save fail 03"));
+            }
+        }
     }
     else
     {
         QMessageBox::about(this, tr("error"), tr("SimpleInfo::btnAlterOkClicked is error\n%1").arg(tableMode->lastError().text()));
-        return ;
     }
 
-    photoAlterBtn->setHidden(true);
-    btnAdd->setHidden(true);
-    btnDelete->setHidden(true);
-    btnRepeal->setHidden(true);
-    btnALterOk->setHidden(true);
-    btnCancel->setHidden(true);
-    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    photoLb->clear();
+    photoNumberLb->clear();
+    photoNameLb->clear();
 }
 
 //----------------------------------------------------------------------------------

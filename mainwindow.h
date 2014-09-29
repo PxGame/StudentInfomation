@@ -9,6 +9,7 @@
 # include <QMessageBox>
 
 # include "simpleinfo.h"
+# include "detailsinfo.h"
 
 class MainWindow : public QMainWindow
 {
@@ -18,8 +19,9 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-public://simpleinfo
-    SimpleInfo *info;
+public:
+    DetailsInfo *info;
+    //SimpleInfo *info;
     QSqlDatabase base;
 
 public://MenuBar

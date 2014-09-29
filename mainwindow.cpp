@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     base = QSqlDatabase::addDatabase(tr("QSQLITE"));
     base.setDatabaseName(tr("mainDb.db"));
 
-    info = new SimpleInfo(&base);
+    info = new DetailsInfo();
     this->setCentralWidget(info);
 }
 
@@ -56,6 +56,7 @@ void MainWindow::actionHelpInfoClicked()
 
 void MainWindow::actionEditALterClicked()
 {
-    emit info->alterSimpleInfo();
+    //emit info->alterSimpleInfo();
+    emit info->alterDetailsInfo();
 }
 //---------------------------------------------------------------------
