@@ -9,6 +9,12 @@
 # include <QHBoxLayout>
 # include <QVBoxLayout>
 # include <QGridLayout>
+# include <QDateEdit>
+# include <QPixmap>
+# include <QByteArray>
+# include <QBuffer>
+# include <QMessageBox>
+# include <QFileDialog>
 
 class DetailsInfo : public QWidget
 {
@@ -50,7 +56,7 @@ public:
     QLabel *addressLb;
     QLineEdit *addressLe;
     QLabel *birthdayLb;
-    QLineEdit *birthdayLe;
+    QDateEdit *birthdayDe;
     QLabel *politicalLb;
     QLineEdit *politicalLe;
     QLabel *languageLevelLb;
@@ -76,8 +82,9 @@ public:
     QVBoxLayout *mainLayout;
 
 public:
-    void loadInfo();
-    void loadBtn();
+    void loadInfoWidget();
+    void loadBtnWidget();
+    void setReadOnly(bool mode = true);
 
 
 signals:
@@ -85,7 +92,11 @@ signals:
 
 public slots:
     void actionAlterClicked();
-
+    void returnBtnClicked();
+    void repealBtnClicked();
+    void alterOkBtnClicked();
+    void cancelBtnClicked();
+    void photoAlterBtnClicked();
 };
 
 #endif // DETAILSINFO_H
