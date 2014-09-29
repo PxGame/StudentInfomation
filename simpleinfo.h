@@ -81,6 +81,7 @@ private:
 
 public:
     void loadDataBase();
+    bool readOnly;
 
 
 signals:

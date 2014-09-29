@@ -7,9 +7,10 @@
 # include <QMenu>
 # include <QAction>
 # include <QMessageBox>
+# include <QAbstractItemModel>
+# include <QModelIndex>
 
-# include "simpleinfo.h"
-# include "detailsinfo.h"
+# include "stackview.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,9 +21,8 @@ public:
     ~MainWindow();
 
 public:
-    DetailsInfo *info;
-    //SimpleInfo *info;
     QSqlDatabase base;
+    StackView *stackView;
 
 public://MenuBar
     QMenu *menuFile;
@@ -41,6 +41,10 @@ public slots:
     void actionFileQuitClicked();
     void actionHelpInfoClicked();
     void actionEditALterClicked();
+public slots://stackView.simple
+    void simpleDoubleClicked(QModelIndex index);
+public slots://stackView.details
+    void detailsReturnBtnClicked();
 
 };
 

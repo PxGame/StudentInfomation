@@ -94,6 +94,7 @@ void SimpleInfo::loadInfoWidget()
     photoAlterBtn->setHidden(true);
 
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    readOnly = true;
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     connect(tableView, SIGNAL(pressed(QModelIndex)),
@@ -172,6 +173,7 @@ void SimpleInfo::loadBtnWidget()
     btnRepeal->setHidden(true);
     btnALterOk->setHidden(true);
     btnCancel->setHidden(true);
+    readOnly = true;//
 
     connect(btnAdd, SIGNAL(clicked()),
             this, SLOT(btnAddClicked()));
@@ -206,6 +208,7 @@ void SimpleInfo::btnCancelClicked()
     btnALterOk->setHidden(true);
     btnCancel->setHidden(true);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    readOnly = true;
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
@@ -241,6 +244,7 @@ void SimpleInfo::btnAlterOkClicked()
         btnALterOk->setHidden(true);
         btnCancel->setHidden(true);
         tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        readOnly = true;
         tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
         const QPixmap *pix = photoLb->pixmap();
@@ -306,6 +310,7 @@ void SimpleInfo::actionAlterClicked()
     btnRepeal->setHidden(false);
     btnALterOk->setHidden(false);
     btnCancel->setHidden(false);
+    readOnly = false;
     tableView->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked);
     tableView->setSelectionBehavior(QAbstractItemView::SelectItems);
 }

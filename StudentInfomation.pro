@@ -15,8 +15,10 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     simpleinfo.cpp \
-    detailsinfo.cpp
+    detailsinfo.cpp \
+    stackview.cpp
 
 HEADERS  += mainwindow.h \
     simpleinfo.h \
-    detailsinfo.h
+    detailsinfo.h \
+    stackview.h

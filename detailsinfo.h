@@ -9,18 +9,23 @@
 # include <QHBoxLayout>
 # include <QVBoxLayout>
 # include <QGridLayout>
-# include <QDateEdit>
 # include <QPixmap>
 # include <QByteArray>
+# include <QVariant>
 # include <QBuffer>
 # include <QMessageBox>
 # include <QFileDialog>
+
+# include <QSqlDatabase>
+# include <QSqlDriver>
+# include <QSqlError>
+# include <QSqlQuery>
 
 class DetailsInfo : public QWidget
 {
     Q_OBJECT
 public:
-    DetailsInfo(QWidget *parent = 0);
+    DetailsInfo(QSqlDatabase *base, QWidget *parent = 0);
 public:
     QLabel *titleLb;
     //simpleInfo-----------------------------------
@@ -56,7 +61,7 @@ public:
     QLabel *addressLb;
     QLineEdit *addressLe;
     QLabel *birthdayLb;
-    QDateEdit *birthdayDe;
+    QLineEdit *birthdayLe;
     QLabel *politicalLb;
     QLineEdit *politicalLe;
     QLabel *languageLevelLb;
@@ -81,10 +86,15 @@ public:
     //main-------------------------------------------
     QVBoxLayout *mainLayout;
 
+private:
+    QString numberInfo;
+    QSqlDatabase *base;
 public:
     void loadInfoWidget();
     void loadBtnWidget();
     void setReadOnly(bool mode = true);
+    void setInfo(QString number);//通过主键学号查找学生所有相关信息
+    void clear();//清除所有显示的数据
 
 
 signals:
