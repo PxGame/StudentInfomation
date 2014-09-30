@@ -22,3 +22,11 @@ HEADERS  += mainwindow.h \
     simpleinfo.h \
     detailsinfo.h \
     stackview.h
+
+RESOURCES +=
+
+RC_FILE = myapp.rc
+
+OTHER_FILES += \
+    myappico.ico \
+    myapp.rc

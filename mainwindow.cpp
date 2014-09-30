@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-
+    base.close();
 }
 //---------------------------------------------------------------------
 void MainWindow::loadMenuBar()
